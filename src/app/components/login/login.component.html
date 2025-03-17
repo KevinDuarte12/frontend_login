@@ -1,0 +1,30 @@
+<div class="login-container">
+    <div class="login-card">
+        <div class="login-header">
+            <h2>Bienvenido</h2>
+            <p>Ingresa a tu cuenta</p>
+        </div>
+
+        <form>
+            <div class="form-group">
+                <input type="email" id="email" required>
+                <label for="email">Correo electrónico</label>
+            </div>
+
+            <div class="form-group">
+                <input type="password" id="password" required>
+                <label for="password">Contraseña</label>
+                <span class="forgot-password">
+                    <a href="#">¿Olvidaste tu contraseña?</a>
+                </span>
+            </div>
+
+            <button type="submit" routerLink="/dashboard" >Iniciar Sesión</button>
+
+            <div class="register-link">
+                <p>¿No tienes una cuenta? <a routerLink="/register">Regístrate</a></p>
+            </div>
+        </form>
+    </div>
+
+</div>
