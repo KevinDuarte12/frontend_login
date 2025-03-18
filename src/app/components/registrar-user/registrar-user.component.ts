@@ -9,7 +9,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { SpinnerComponent } from '../../shared/spinner/spinner.component';
 import { NgIf } from '@angular/common';
-
+import { ErrorService } from '../../services/error.service';
 @Component({
   selector: 'app-registrar-user',
   standalone: true,
@@ -28,7 +28,8 @@ export class RegistrarUserComponent {
   constructor(
     private toastr: ToastrService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private errorService: ErrorService
   ) { }
 
   onSubmit() {
@@ -61,15 +62,11 @@ export class RegistrarUserComponent {
         this.toastr.success(`Usuario ${user.username} registrado correctamente`, 'Éxito!');
         this.router.navigate(['/login']);
       },
-      error: (event: HttpErrorResponse) => {
+      error: (e: HttpErrorResponse) => {
         this.loading = false;
-        if (event.error?.message) {
-          const errorMessage = event.error?.message || 'Error al registrar el usuario';
-          this.toastr.error(errorMessage, 'Error!');
-        } else {
-          this.toastr.error('Upss ocurrió un error, comuníquese con el administrador', '¡Error!');
-        }
+        this.errorService.msjError(e);
       }
     });
   }
+ 
 }

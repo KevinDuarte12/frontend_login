@@ -27,4 +27,7 @@ export class UserService {
       })
     );
   }
+  login(user: user): Observable<string> {
+   return this.http.post<string>(`${this.myAppUrl}${this.myApiUrl}/login`, user);
+  }
 }
