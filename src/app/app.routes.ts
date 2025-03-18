@@ -1,11 +1,12 @@
-import { Routes } from '@angular/router';
-import { LoginComponent } from './components/login/login.component';
-import { RegistrarUserComponent } from './components/registrar-user/registrar-user.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { Routes } from '@angular/router'; // Importa Routes para definir las rutas de la aplicación
+import { LoginComponent } from './components/login/login.component'; // Importa el componente LoginComponent
+import { RegistrarUserComponent } from './components/registrar-user/registrar-user.component'; // Importa el componente RegistrarUserComponent
+import { DashboardComponent } from './components/dashboard/dashboard.component'; // Importa el componente DashboardComponent
+import { authGuard } from './utils/auth.guard'; // Importa el guardia de autenticación
 
 export const routes: Routes = [
-  {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegistrarUserComponent},
-  {path: 'dashboard', component: DashboardComponent},
-  {path:'**', redirectTo: 'login'}
+  { path: 'login', component: LoginComponent }, // Ruta para el componente de inicio de sesión
+  { path: 'register', component: RegistrarUserComponent }, // Ruta para el componente de registro de usuarios
+  { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard] }, // Ruta para el dashboard, protegida por el guardia de autenticación
+  { path: '**', redirectTo: 'login' } // Ruta comodín: redirige cualquier ruta no definida a 'login'
 ];

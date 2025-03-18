@@ -1,22 +1,31 @@
 import { Component } from '@angular/core';
-import { NavbarComponent } from '../navbar/navbar.component';
-import { ProductService } from '../../services/product.service';
+import { NavbarComponent } from '../navbar/navbar.component'; // Importa el componente Navbar
+import { ProductService } from '../../services/product.service'; // Importa el servicio ProductService
+import { product } from '../../interfaces/product'; // Importa la interfaz product
+
 
 @Component({
-  selector: 'app-dashboard',
-  imports: [NavbarComponent],
-  templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css',
-  standalone: true
+  selector: 'app-dashboard', // Selector del componente
+  imports: [NavbarComponent], // Componentes y directivas que se usan en este componente
+  templateUrl: './dashboard.component.html', // Ruta al archivo de plantilla HTML
+  styleUrl: './dashboard.component.css', // Ruta al archivo de estilos CSS
+  standalone: true // Indica que este componente es independiente (standalone)
 })
 export class DashboardComponent {
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService) { } // Inyecta el servicio ProductService
+
+  products: product[] = []; // Arreglo para almacenar los productos
+
   ngOnInit() {
-    this.getProducts();
+    // Método que se ejecuta cuando el componente se inicializa
+    this.getProducts(); // Llama al método para obtener los productos
   }
+
   getProducts() {
+    // Método para obtener los productos desde el servicio
     this.productService.getProducts().subscribe(data => {
-      console.log(data);
+      // Suscribe a la respuesta del servicio
+      this.products = data; // Asigna los datos obtenidos al arreglo products
     });
   }
 }

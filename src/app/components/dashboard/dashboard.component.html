@@ -6,17 +6,19 @@
           <tr>
             <th scope="col">Nombre</th>
             <th scope="col">Descripcion</th>
+            <th scope="col">price</th>
+            <th scope="col">stock</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Cocacola</td>
-            <td>Bebida con azucar</td>
-          </tr>
-          <tr>
-            <td>Sibarita</td>
-            <td>Bebida con azucar</td>
-          </tr>
+          @for(product of products; track product.id) {
+            <tr>
+              <td>{{product.name}}</td>
+              <td>{{product.description}}</td>
+              <td>{{product.price}}</td>
+              <td>{{product.stock}}</td>
+            </tr>
+          }
         </tbody>
-      </table>
+    </table>
 </div>

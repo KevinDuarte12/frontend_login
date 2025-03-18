@@ -1,29 +1,31 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environment/environment'; // Asegúrate de que la ruta sea correcta
-import { user } from '../interfaces/user';
-import { Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { HttpErrorResponse } from '@angular/common/http';
-import { throwError } from 'rxjs';
+import { Injectable } from '@angular/core'; // Importa el decorador Injectable para definir un servicio
+import { HttpClient } from '@angular/common/http'; // Importa HttpClient para hacer solicitudes HTTP
+import { environment } from '../../environment/environment'; // Importa el archivo de configuración del entorno
+import { user } from '../interfaces/user'; // Importa la interfaz user para tipar los datos
+import { Observable } from 'rxjs'; // Importa Observable para manejar flujos de datos asíncronos
+import { catchError } from 'rxjs/operators'; // Importa catchError para manejar errores en las solicitudes HTTP
+import { HttpErrorResponse } from '@angular/common/http'; // Importa HttpErrorResponse para manejar errores HTTP
+import { throwError } from 'rxjs'; // Importa throwError para reenviar errores
 
 @Injectable({
-  providedIn: 'root' // Asegúrate de que el servicio esté proporcionado en 'root'
+  providedIn: 'root' // Indica que el servicio está disponible en toda la aplicación (singleton)
 })
 export class UserService {
-  private myAppUrl: string;
-  private myApiUrl: string;
+  private myAppUrl: string; // Variable para almacenar la URL base de la aplicación
+  private myApiUrl: string; // Variable para almacenar la ruta de la API para usuarios
 
-  constructor(private http: HttpClient) {
-    this.myAppUrl = environment.endpoint; // Asegúrate de que 'endpoint' esté definido en environment
-    this.myApiUrl = 'api/users/';
+  constructor(private http: HttpClient) { // Inyecta el servicio HttpClient para hacer solicitudes HTTP
+    this.myAppUrl = environment.endpoint; // Asigna la URL base desde el archivo de entorno
+    this.myApiUrl = 'api/users/'; // Asigna la ruta de la API para usuarios
   }
 
   signIn(user: user): Observable<any> {
-   return this.http.post<any>(`${this.myAppUrl}${this.myApiUrl}`,user);
+    // Método para registrar un nuevo usuario
+    return this.http.post<any>(`${this.myAppUrl}${this.myApiUrl}`, user); // Realiza una solicitud POST a la API
   }
-  
+
   login(user: user): Observable<string> {
-   return this.http.post<string>(`${this.myAppUrl}${this.myApiUrl}/login`, user);
+    // Método para iniciar sesión
+    return this.http.post<string>(`${this.myAppUrl}${this.myApiUrl}/login`, user); // Realiza una solicitud POST a la API
   }
 }
