@@ -20,13 +20,9 @@ export class UserService {
   }
 
   signIn(user: user): Observable<any> {
-    return this.http.post(`${this.myAppUrl}${this.myApiUrl}`, user).pipe(
-      catchError((error: HttpErrorResponse) => {
-        console.error('Error en la solicitud:', error);
-        return throwError(() => new Error('Error al registrar el usuario'));
-      })
-    );
+   return this.http.post<any>(`${this.myAppUrl}${this.myApiUrl}`,user);
   }
+  
   login(user: user): Observable<string> {
    return this.http.post<string>(`${this.myAppUrl}${this.myApiUrl}/login`, user);
   }

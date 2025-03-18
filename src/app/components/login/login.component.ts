@@ -11,7 +11,7 @@ import { ErrorService } from '../../services/error.service';
 
 @Component({
   selector: 'app-login',
-  imports: [RouterLink, FormsModule,SpinnerComponent, NgIf],
+  imports: [RouterLink, FormsModule, SpinnerComponent, NgIf],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
   standalone: true
@@ -28,7 +28,7 @@ export class LoginComponent {
     private userService: UserService,
     private router: Router,
     private errorService: ErrorService
-  ) {}
+  ) { }
 
   onSubmit() {
     if (this.userData.password === '' || this.userData.username === '') {
@@ -43,10 +43,11 @@ export class LoginComponent {
       username: this.userData.username,
       password: this.userData.password
     };
-this.loading = true;
+    this.loading = true;
     this.userService.login(user).subscribe({
-      next: (token) => {
-        localStorage.setItem('token', token);
+      next: (response: any) => {
+        const token = response.token; // Extraer el token del objeto
+        localStorage.setItem('token', token); // Guardar solo el token
         this.router.navigate(['/dashboard']);
       },
       error: (e: HttpErrorResponse) => {

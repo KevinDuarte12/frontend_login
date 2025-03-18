@@ -17,8 +17,8 @@ export class ProductService {
       this.myApiUrl = 'api/product';
     }
     getProducts(): Observable<product[]> {
-      const token = localStorage.getItem('token');
-      const header = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-      return this.http.get<product[]>(`${this.myAppUrl}${this.myApiUrl}`,{headers: header});
+      const token = localStorage.getItem('token'); // Obtener el token
+      const header = new HttpHeaders().set('Authorization', `Bearer ${token}`); // Enviar el token en los headers
+      return this.http.get<product[]>(`${this.myAppUrl}${this.myApiUrl}`, { headers: header });
     }
 }
