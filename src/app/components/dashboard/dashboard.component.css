@@ -1,5 +1,25 @@
-.container-tables{
+.container-tables {
     margin: 100px auto;
     width: 800px;
     border: 1px solid #e4b7b7;
+    padding: 20px;
+}
+
+.titles {
+    display: flex;
+    justify-content: space-between; /* Alinea el título a la izquierda y el botón "Crear" a la derecha */
+    align-items: center; /* Centra verticalmente el título y el botón */
+    margin-bottom: 20px; /* Espacio entre el título/botón y la tabla */
+}
+
+.actions {
+    display: flex;
+    gap: 10px; /* Espaciado entre los botones */
+    justify-content: center; /* Centra los botones horizontalmente */
+    align-items: center; /* Centra los botones verticalmente */
+}
+
+/* Asegura que el texto en la columna "Acciones" esté centrado */
+.text-center {
+    text-align: center;
 }

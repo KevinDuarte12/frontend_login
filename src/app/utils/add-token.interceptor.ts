@@ -17,7 +17,7 @@ export const authInterceptor: HttpInterceptorFn = (
   const token = localStorage.getItem('token');
 
   // Verificar si la URL de la solicitud es para login, register o signin
-  if (req.url.includes('login') || req.url.includes('register') || req.url.includes('signin')) {
+  if (req.url.includes('login') || req.url.includes('add') || req.url.includes('signin')) {
     // Si es una de estas rutas, no añadir el header de autorización y pasar la solicitud sin modificar
     return next(req);
   }

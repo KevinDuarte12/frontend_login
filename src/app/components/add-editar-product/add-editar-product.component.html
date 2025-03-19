@@ -1,0 +1,65 @@
+<app-navbar></app-navbar>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="text-center mb-4">Actualizar Producto</h2>
+                    <form [formGroup]="form" (ngSubmit)="addProduct()">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nombre</label>
+                            <input type="text" 
+                                   class="form-control" 
+                                   id="name" 
+                                   formControlName="name" 
+                                   required>
+                              <span *ngIf="form.get('name')?.hasError('required') && form.get('name')?.touched">El campo nombre es <strong>requerido</strong></span>     
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Descripción</label>
+                            <textarea class="form-control" 
+                                      id="description" 
+                                      formControlName="description" 
+                                      rows="3" 
+                                      required></textarea>
+                                      <span *ngIf="form.get('description')?.hasError('required') && form.get('description')?.touched">El campo descripcion es <strong>requerido</strong></span> 
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="price" class="form-label">Precio</label>
+                            <input type="number" 
+                                   class="form-control" 
+                                   id="price" 
+                                   formControlName="price"
+                                   min="0"
+                                   step="0.01" 
+                                   required>
+                                   <span *ngIf="form.get('price')?.hasError('required') && form.get('price')?.touched">El campo precio es <strong>requerido</strong></span> 
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="stock" class="form-label">Stock</label>
+                            <input type="number" 
+                                   class="form-control" 
+                                   id="stock" 
+                                   formControlName="stock"
+                                   min="0" 
+                                   required>
+                                   <span *ngIf="form.get('stock')?.hasError('required') && form.get('stock')?.touched">El campo stock es <strong>requerido</strong></span> 
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button [disabled]="form.invalid" type="submit" class="btn btn-primary">
+                                Actualizar
+                            </button>
+                            <button type="submit"  class="btn btn-secondary" routerLink="/dashboard">
+                                Volver
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
