@@ -1,24 +1,38 @@
-import { Injectable } from '@angular/core'; // Importa el decorador Injectable para definir un servicio
-import { environment } from '../../environment/environment'; // Importa el archivo de configuración del entorno
-import { HttpClient, HttpHeaders } from '@angular/common/http'; // Importa HttpClient para hacer solicitudes HTTP y HttpHeaders para manejar headers
-import { Observable } from 'rxjs'; // Importa Observable para manejar flujos de datos asíncronos
-import { product } from '../interfaces/product'; // Importa la interfaz product para tipar los datos
+import { Injectable } from '@angular/core';
+import { environment } from '../../environment/environment';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { product } from '../interfaces/product';
 
 @Injectable({
-  providedIn: 'root' // Indica que el servicio está disponible en toda la aplicación (singleton)
+  providedIn: 'root',
 })
 export class ProductService {
+  private myAppUrl: string;
+  private myApiUrl: string;
 
-  private myAppUrl: string; // Variable para almacenar la URL base de la aplicación
-  private myApiUrl: string; // Variable para almacenar la ruta de la API
-
-  constructor(private http: HttpClient) { // Inyecta el servicio HttpClient para hacer solicitudes HTTP
-    this.myAppUrl = environment.endpoint; // Asigna la URL base desde el archivo de entorno
-    this.myApiUrl = 'api/product'; // Asigna la ruta de la API para productos
+  constructor(private http: HttpClient) {
+    this.myAppUrl = environment.endpoint;
+    this.myApiUrl = 'api/product';
   }
 
   getProducts(): Observable<product[]> {
-    // Método para obtener la lista de productos
-    return this.http.get<product[]>(`${this.myAppUrl}${this.myApiUrl}`); // Realiza una solicitud GET a la API
+    return this.http.get<product[]>(`${this.myAppUrl}${this.myApiUrl}`);
+  }
+
+  getProductById(id: number): Observable<product> {
+    return this.http.get<product>(`${this.myAppUrl}${this.myApiUrl}/${id}`);
+  }
+
+  createProduct(product: product): Observable<void> {
+    return this.http.post<void>(`${this.myAppUrl}${this.myApiUrl}`, product);
+  }
+
+  updateProduct(id: number, product: product): Observable<void> {
+    return this.http.put<void>(`${this.myAppUrl}${this.myApiUrl}/${id}`, product);
+  }
+
+  deleteProduct(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.myAppUrl}${this.myApiUrl}/${id}`);
   }
 }

@@ -1,31 +1,49 @@
-import { Component } from '@angular/core';
-import { NavbarComponent } from '../navbar/navbar.component'; // Importa el componente Navbar
-import { ProductService } from '../../services/product.service'; // Importa el servicio ProductService
-import { product } from '../../interfaces/product'; // Importa la interfaz product
+import { Component, OnInit } from '@angular/core';
+import { NavbarComponent } from '../navbar/navbar.component';
+import { ProductService } from '../../services/product.service';
+import { product } from '../../interfaces/product';
 import { RouterLink } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-dashboard', // Selector del componente
-  imports: [NavbarComponent, RouterLink], // Componentes y directivas que se usan en este componente
-  templateUrl: './dashboard.component.html', // Ruta al archivo de plantilla HTML
-  styleUrl: './dashboard.component.css', // Ruta al archivo de estilos CSS
-  standalone: true // Indica que este componente es independiente (standalone)
+  selector: 'app-dashboard',
+  standalone: true,
+  imports: [NavbarComponent, RouterLink],
+  templateUrl: './dashboard.component.html',
+  styleUrl: './dashboard.component.css',
 })
-export class DashboardComponent {
-  constructor(private productService: ProductService) { } // Inyecta el servicio ProductService
+export class DashboardComponent implements OnInit {
+  products: product[] = [];
 
-  products: product[] = []; // Arreglo para almacenar los productos
+  constructor(
+    private productService: ProductService,
+    private toastr: ToastrService
+  ) {}
 
-  ngOnInit() {
-    // Método que se ejecuta cuando el componente se inicializa
-    this.getProducts(); // Llama al método para obtener los productos
+  ngOnInit(): void {
+    this.getProducts();
   }
 
-  getProducts() {
-    // Método para obtener los productos desde el servicio
-    this.productService.getProducts().subscribe(data => {
-      // Suscribe a la respuesta del servicio
-      this.products = data; // Asigna los datos obtenidos al arreglo products
+  getProducts(): void {
+    this.productService.getProducts().subscribe({
+      next: (data) => (this.products = data),
+      error: (err) => {
+        this.toastr.error('Error al cargar los productos', 'Error');
+      },
     });
+  }
+
+  deleteProduct(id: number): void {
+    if (confirm('¿Estás seguro de eliminar este producto?')) {
+      this.productService.deleteProduct(id).subscribe({
+        next: () => {
+          this.products = this.products.filter((product) => product.id !== id);
+          this.toastr.success('Producto eliminado correctamente', 'Éxito');
+        },
+        error: (err) => {
+          this.toastr.error('Error al eliminar el producto', 'Error');
+        },
+      });
+    }
   }
 }

@@ -8,22 +8,22 @@
     <thead>
       <tr>
         <th scope="col">Nombre</th>
-        <th scope="col">Descripcion</th>
-        <th scope="col">price</th>
-        <th scope="col">stock</th>
-        <th scope="col" class="text-center">Acciones</th> <!-- Añadida clase "text-center" -->
+        <th scope="col">Descripción</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Stock</th>
+        <th scope="col" class="text-center">Acciones</th>
       </tr>
     </thead>
     <tbody>
       @for(product of products; track product.id) {
       <tr>
-        <td>{{product.name}}</td>
-        <td>{{product.description}}</td>
-        <td>{{product.price}}</td>
-        <td>{{product.stock}}</td>
-        <td class="actions text-center"> <!-- Añadida clase "text-center" -->
-          <button type="button" class="btn btn-danger">Eliminar</button>
-          <button type="button" class="btn btn-warning">Actualizar</button>
+        <td>{{ product.name }}</td>
+        <td>{{ product.description }}</td>
+        <td>{{ product.price }}</td>
+        <td>{{ product.stock }}</td>
+        <td class="actions text-center">
+          <button type="button" class="btn btn-danger" (click)="deleteProduct(product.id!)">Eliminar</button>
+          <button type="button" class="btn btn-warning" [routerLink]="['/edit', product.id]">Actualizar</button>
         </td>
       </tr>
       }
