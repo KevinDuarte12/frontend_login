@@ -1,4 +1,4 @@
-<app-navbar></app-navbar>
+
 <div class="register-container">
     <div class="register-card" *ngIf="!loading">
         <h2>Crear cuenta</h2>
@@ -15,6 +15,7 @@
             <div class="form-group">
                 <input type="email" 
                        name="email"
+                        [(ngModel)]="userData.email"
                        id="email" 
                        required>
                 <label for="email">Correo electrónico</label>

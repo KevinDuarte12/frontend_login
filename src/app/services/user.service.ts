@@ -28,4 +28,19 @@ export class UserService {
     // Método para iniciar sesión
     return this.http.post<string>(`${this.myAppUrl}${this.myApiUrl}/login`, user); // Realiza una solicitud POST a la API
   }
+  getUsers(): Observable<user[]> {
+    // Método para obtener todos los usuarios
+    return this.http.get<user[]>(`${this.myAppUrl}${this.myApiUrl}`);
+  }
+  updateUser(id: number, user: user): Observable<void> {
+    return this.http.put<void>(`${this.myAppUrl}${this.myApiUrl}${id}`, user);
+  }
+
+  getUser(id: number): Observable<user> {
+    return this.http.get<user>(`${this.myAppUrl}${this.myApiUrl}${id}`);
+  }
+
+  deleteUser(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.myAppUrl}${this.myApiUrl}${id}`);
+  }
 }

@@ -13,7 +13,7 @@ export class ProductService {
 
   constructor(private http: HttpClient) {
     this.myAppUrl = environment.endpoint;
-    this.myApiUrl = 'api/product';
+    this.myApiUrl = 'api/products';
   }
 
   getProducts(): Observable<product[]> {

@@ -5,7 +5,7 @@ import { UserService } from '../../services/user.service'; // Importa el servici
 import { user } from '../../interfaces/user'; // Importa la interfaz user
 import { Router, RouterLink } from '@angular/router'; // Importa Router y RouterLink para manejar la navegación y enlaces
 import { HttpErrorResponse } from '@angular/common/http'; // Importa HttpErrorResponse para manejar errores HTTP
-import { NavbarComponent } from '../navbar/navbar.component'; // Importa el componente Navbar
+
 import { SpinnerComponent } from '../../shared/spinner/spinner.component'; // Importa el componente Spinner
 import { NgIf } from '@angular/common'; // Importa la directiva NgIf para usar *ngIf en la plantilla
 import { ErrorService } from '../../services/error.service'; // Importa el servicio ErrorService para manejar errores
@@ -13,7 +13,7 @@ import { ErrorService } from '../../services/error.service'; // Importa el servi
 @Component({
   selector: 'app-registrar-user', // Selector del componente (se usa en las plantillas HTML)
   standalone: true, // Indica que este componente es independiente (standalone)
-  imports: [FormsModule, RouterLink, NavbarComponent, SpinnerComponent, NgIf], // Componentes y directivas que se usan en este componente
+  imports: [FormsModule, RouterLink, SpinnerComponent, NgIf], // Componentes y directivas que se usan en este componente
   templateUrl: './registrar-user.component.html', // Ruta al archivo de plantilla HTML del componente
   styleUrl: './registrar-user.component.css' // Ruta al archivo de estilos CSS del componente
 })
@@ -22,7 +22,8 @@ export class RegistrarUserComponent {
   userData = {
     username: '', // Variable para almacenar el nombre de usuario
     password: '', // Variable para almacenar la contraseña
-    confirmPassword: '' // Variable para almacenar la confirmación de la contraseña
+    confirmPassword: '', // Variable para almacenar la confirmación de la contraseña
+    email: '' // Variable para almacenar el correo electrónico
   };
 
   constructor(
@@ -55,7 +56,8 @@ export class RegistrarUserComponent {
     // Crea un objeto user con los datos del formulario
     const user: user = {
       username: this.userData.username,
-      password: this.userData.password
+      password: this.userData.password,
+      email: this.userData.email
     };
 
     this.loading = true; // Activa el estado de carga (muestra el spinner)
